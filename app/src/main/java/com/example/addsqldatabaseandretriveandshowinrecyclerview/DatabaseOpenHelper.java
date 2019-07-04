@@ -2,6 +2,7 @@ package com.example.addsqldatabaseandretriveandshowinrecyclerview;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -44,9 +45,12 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         sqLiteDatabase.close();
         return id;
 
-
-
-
-
     }
+    public Cursor showData(){
+        String show_all = "select * from " + TABLE_NAME;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(show_all,null);
+        return cursor;
+    }
+
 }
