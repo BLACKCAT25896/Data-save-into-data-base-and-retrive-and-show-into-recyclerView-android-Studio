@@ -53,4 +53,13 @@ public class DatabaseOpenHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+
+    public void deleteData(int id){
+
+        getWritableDatabase().delete(TABLE_NAME,"ID=?",new String[]{String.valueOf(id)});
+
+
+    }
+
+
 }

@@ -28,18 +28,19 @@ public class ShowDataActivity extends AppCompatActivity {
         recyclerViewinit();
 
 
+        retriveData();
+    }
+
+
+    private void retriveData() {
         Cursor cursor = helper.showData();
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(cursor.getColumnIndex(helper.COL_ID));
             String name = cursor.getString(cursor.getColumnIndex(helper.COL_NAME));
             String age = cursor.getString(cursor.getColumnIndex(helper.COL_AGE));
-            userList.add(new User(id, name,age));
+            userList.add(new User(id, name, age));
             adapter.notifyDataSetChanged();
         }
-
-
-
-
 
 
     }
@@ -53,6 +54,6 @@ public class ShowDataActivity extends AppCompatActivity {
         helper = new DatabaseOpenHelper(this);
         userList = new ArrayList<>();
         userrecyclerView = findViewById(R.id.usersRecyclerView);
-        adapter = new UserAdapter(userList,this);
+        adapter = new UserAdapter(helper,userList,this);
     }
 }

@@ -16,7 +16,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     private List<User> userList;
     private Context context;
 
-    public UserAdapter(List<User> userList, Context context) {
+    public UserAdapter(DatabaseOpenHelper helper, List<User> userList, Context context) {
+        this.helper = helper;
         this.userList = userList;
         this.context = context;
     }
@@ -30,7 +31,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         final User currentUser  = userList.get(position);
         holder.name.setText(currentUser.getName());
@@ -38,6 +39,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
+                helper = new DatabaseOpenHelper(context);
+                helper.deleteData(currentUser.getId());
+                userList.remove(position);
+                notifyDataSetChanged();
 
 
 
